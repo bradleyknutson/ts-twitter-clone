@@ -1,10 +1,14 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Paper from '@material-ui/core/Paper';
 import loginBackground from './loginBackground.png';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import LoginInput from './login-input.component';
+import Typography from '@material-ui/core/Typography';
+import Icon from '@material-ui/core/Icon';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,31 +26,44 @@ const useStyles = makeStyles(() => ({
   paper: {
     flexDirection: 'column',
   },
-  form: {
-    width: '100%',
-    marginTop: '10px',
-    display: 'inline-flex',
+  center: {
+    height: '100%',
+    display: 'flex',
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    bottom: '0',
     alignItems: 'center',
-  },
-  input: {
-    '& .MuiInputLabel-root': {
-      color: 'rgb(61, 84, 102)',
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'rgb(61, 84, 102)',
-    },
-    '& .MuiInputBase-input': {
+    justifyContent: 'center',
+    '& .MuiTypography-root': {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'center',
       color: 'white',
+      pointerEvents: 'auto',
     },
-    margin: '10px',
+    width: '50%',
+    flexDirection: 'column',
+    pointerEvents: 'none',
   },
-  inputLabel: {
-    fontSize: '12px',
+  centeredItems: {
+    width: '50%',
   },
-  submit: {
-    alignItems: 'center',
-    margin: '10px 0 10px 0',
+  icon: {
+    alignSelf: 'flex-start',
+  },
+  button: {
     borderRadius: '25px',
+    width: '100%',
+    marginBottom: '20px',
+    pointerEvents: 'auto',
+  },
+  bottomCenteredText: {
+    marginBottom: '50px',
+  },
+  text: {
+    fontSize: '24px',
+    fontWeight: 'bold',
   },
 }));
 
@@ -56,6 +73,7 @@ export default function LoginPage() {
   return (
     <Grid container component='main' classes={{ root: classes.root }}>
       <Grid item md={6} classes={{ root: classes.image }} />
+
       <Grid
         item
         md={6}
@@ -64,34 +82,36 @@ export default function LoginPage() {
         square
         classes={{ root: classes.paper }}
       >
-        <div>
-          <form className={classes.form}>
-            <TextField
-              required
-              id='login-username'
-              label='Phone, email, or username'
-              variant='outlined'
-              classes={{ root: classes.input }}
-              InputLabelProps={{ classes: { root: classes.inputLabel } }}
-            />
-            <TextField
-              required
-              id='login-password'
-              label='Password'
-              variant='outlined'
-              classes={{ root: classes.input }}
-              InputLabelProps={{ classes: { root: classes.inputLabel } }}
-            />
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              classes={{ root: classes.submit }}
+        <LoginInput />
+        <Grid item md={12} classes={{ root: classes.center }}>
+          <Grid item classes={{ root: classes.centeredItems }}>
+            <Icon component={TwitterIcon} classes={{ root: classes.icon }} />
+            <Typography classes={{ root: classes.text }}>
+              See what’s happening in the world right now
+            </Typography>
+            <Typography
+              classes={{
+                root: clsx(classes.text, classes.bottomCenteredText),
+              }}
             >
-              Log in
+              Join Twitter today.
+            </Typography>
+            <Button
+              color='primary'
+              variant='contained'
+              classes={{ root: classes.button }}
+            >
+              Sign Up
             </Button>
-          </form>
-        </div>
+            <Button
+              color='secondary'
+              variant='contained'
+              classes={{ root: classes.button }}
+            >
+              Login
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
